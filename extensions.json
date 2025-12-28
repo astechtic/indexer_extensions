@@ -5,5 +5,19 @@
     "category": "eBooks",
     "primarySource": "https://annas-archive.org",
     "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/annas_archive_ext.js"
+  },
+  {
+    "id": "rarbgdump",
+    "siteTitle": "RARBG",
+    "category": "Torrent",
+    "primarySource": "https://rarbgdump.com",
+    "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/rarbg_dump_ext.js"
+  },
+  {
+    "id": "btdig",
+    "siteTitle": "BTDig",
+    "category": "Torrent",
+    "primarySource": "https://btdig.com",
+    "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/btdig_ext.js"
   }
 ]
