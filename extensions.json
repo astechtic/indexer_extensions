@@ -4,5 +4,6 @@
     "siteTitle": "Anna's Archive",
     "category": "eBooks",
     "primarySource": "https://annas-archive.org",
+    "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/annas_archive_ext.js",
   }
 ]
