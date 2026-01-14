@@ -2,8 +2,8 @@ module.exports = {
   id: "annasArchive",
   siteTitle: "Anna's Archive",
   version: "1.5.0",
-  primarySource: "https://annas-archive.org",
-  sources: ["https://annas-archive.org"],
+  primarySource: "https://annas-archive.li",
+  sources: ["https://annas-archive.li"],
   permissions: {
     network: true,
     cookies: false,
