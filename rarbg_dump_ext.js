@@ -115,29 +115,26 @@ module.exports = {
         /* -------- TYPE (5th TD) -------- */
         const type = (tds[4].textContent || "").trim();
 
-        const magnet = [];
-        if (magnetLink) magnet.push(magnetLink);
-        if (itemUrl) magnet.push(itemUrl);
+        const downloadUrls = magnetLink ? [magnetLink] : [];
+        if (!name || !downloadUrls.length) continue;
 
-        if (!name || !magnet.length) continue;
+        const description = this._buildDescription("", {
+          Type: type || null
+        });
 
         results.push({
-          name,
+          title: name,
+          url: itemUrl || this.primarySource,
+          info: type || null,
           size: size || null,
-          age: "",
-          magnet,
-          seeder: "",
-          leecher: "",
-          type: type || "",
-          trusted: true,
-          description: "",
+          description: description || null,
+          downloadUrls,
+          category: type || "torrents",
           nsfw:
             typeof isNSFW === "function"
               ? !!isNSFW(name)
               : false,
-          url: itemUrl,
-          source: this.id,
-          site: this.siteTitle,
+          source: this.siteTitle,
           parentSite: this.primarySource
         });
       }
@@ -158,5 +155,19 @@ module.exports = {
     } catch {
       return "";
     }
+  },
+  _buildDescription(base, extras) {
+    const cleanBase = (base || "").trim();
+    const lines = Object.entries(extras)
+      .filter(([, value]) => value !== null && value !== undefined)
+      .map(([label, value]) => {
+        const text = typeof value === "string" ? value.trim() : value;
+        return text ? `${label}: ${text}` : "";
+      })
+      .filter(Boolean);
+
+    if (!lines.length) return cleanBase;
+    if (!cleanBase) return lines.join("\n");
+    return `${cleanBase}\n\n${lines.join("\n")}`;
   }
 };

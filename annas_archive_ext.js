@@ -168,14 +168,23 @@ module.exports = {
           .filter(Boolean)
           .join(" · ");
 
+        const description = this._buildDescription("", {
+          Author: author || null,
+          Publisher: publisher || null,
+          Thumbnail: this._toAbs(imgEl?.getAttribute("src")),
+          BookIdMD5: this._md5FromUrl(link),
+          Type: fileType || null,
+          Year: year || null
+        });
+
         results.push({
           title,
-          author: author || null,
-          publisher: publisher || null,
-          info: info || null,
-          thumbnail: this._toAbs(imgEl?.getAttribute("src")),
           url: link,
-          bookIdMD5: this._md5FromUrl(link),
+          info: info || null,
+          size: size || null,
+          language: language || null,
+          description: description || null,
+          downloadUrls: [],
           category: "books",
           nsfw: false,
           source: this.siteTitle,
@@ -253,14 +262,20 @@ module.exports = {
         }
       });
 
+      const descriptionText = this._buildDescription(
+        this._cleanText(description),
+        {
+          Author: this._cleanText(author),
+          Publisher: this._cleanText(publisher),
+          Thumbnail: thumbnail,
+          BookIdMD5: this._md5FromUrl(pageUrl)
+        }
+      );
+
       return {
         title: this._cleanText(title),
-        author: this._cleanText(author),
-        publisher: this._cleanText(publisher),
-        description: this._cleanText(description),
-        thumbnail,
         url: pageUrl,
-        bookIdMD5: this._md5FromUrl(pageUrl),
+        description: descriptionText || null,
         downloadUrls: [...mirrors],
         category: "books",
         nsfw: false,
@@ -293,5 +308,19 @@ module.exports = {
   },
   _cleanText(text) {
     return text ? text.replace(/\s+/g, " ").trim() : "";
+  },
+  _buildDescription(base, extras) {
+    const cleanBase = this._cleanText(base);
+    const lines = Object.entries(extras)
+      .filter(([, value]) => value !== null && value !== undefined)
+      .map(([label, value]) => {
+        const text = typeof value === "string" ? this._cleanText(value) : value;
+        return text ? `${label}: ${text}` : "";
+      })
+      .filter(Boolean);
+
+    if (!lines.length) return cleanBase;
+    if (!cleanBase) return lines.join("\n");
+    return `${cleanBase}\n\n${lines.join("\n")}`;
   }
 };
