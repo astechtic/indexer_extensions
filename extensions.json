@@ -7,6 +7,13 @@
     "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/annas_archive_ext.js"
   },
   {
+    "id": "snowfl",
+    "siteTitle": "Snowfl",
+    "category": "Torrent",
+    "primarySource": "https://snowfl.com",
+    "installUrl": "https://raw.githubusercontent.com/astechtic/indexer_extensions/refs/heads/main/snowfl_ext.js"
+  },
+  {
     "id": "rarbgdump",
     "siteTitle": "RARBG",
     "category": "Torrent",
